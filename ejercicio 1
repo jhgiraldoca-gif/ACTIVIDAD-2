@@ -1,0 +1,32 @@
+class persona {
+    String nombre;
+    String apellido;
+    String id;
+    int cumple;
+    String nacional;
+    char sex;
+    persona(String nombre, String apellido, String id, int cumple, String nacional, char sex) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.id = id;
+        this.cumple = cumple;
+        this.nacional = nacional;
+        this.sex = sex;
+    }
+void imprimir() {
+    System.out.println("nombre =" + nombre);
+    System.out.println("apellido = " + apellido);
+    System.out.println("Documento = " + id);
+    System.out.println("Cumpleaños = " + cumple);
+    System.out.println("Nacionalidad = " + nacional);
+    System.out.println("sexo = " +  sex);
+ }
+}
+public class Main {
+    public static void main(String[]args) {
+        persona p1 = new persona("JUAN", "PEREZ", "1036256690", 2005, "colombiano", 'M');
+        persona p2 = new persona("maria", "arboleda", "1456785" , 2007, "colombaino", 'F');
+        p1.imprimir();
+        p2.imprimir();
+    }
+}
