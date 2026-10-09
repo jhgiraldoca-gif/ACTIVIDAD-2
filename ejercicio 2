@@ -1,0 +1,83 @@
+enum CategoriaPlaneta {
+    GASEOSO,
+    TERRESTRE,
+    ENANO
+}
+
+class Astro {
+
+    String nombrePlaneta;
+    int cantidadSatelites;
+    double masaKg;
+    double volumenKm3;
+    int diametroKm;
+    int distanciaMediaSol;
+    double traslacion;
+    double rotacion;
+    CategoriaPlaneta categoria;
+    boolean visible;
+
+    Astro(String nombrePlaneta,
+          int cantidadSatelites,
+          double masaKg,
+          double volumenKm3,
+          int diametroKm,
+          int distanciaMediaSol,
+          double traslacion,
+          double rotacion,
+          CategoriaPlaneta categoria,
+          boolean visible) {
+
+        this.nombrePlaneta = nombrePlaneta;
+        this.cantidadSatelites = cantidadSatelites;
+        this.masaKg = masaKg;
+        this.volumenKm3 = volumenKm3;
+        this.diametroKm = diametroKm;
+        this.distanciaMediaSol = distanciaMediaSol;
+        this.traslacion = traslacion;
+        this.rotacion = rotacion;
+        this.categoria = categoria;
+        this.visible = visible;
+    }
+
+    void mostrarDatos() {
+        System.out.println("Planeta: " + nombrePlaneta);
+        System.out.println("Satelites: " + cantidadSatelites);
+        System.out.println("Masa (kg): " + masaKg);
+        System.out.println("Volumen: " + volumenKm3);
+        System.out.println("Diametro: " + diametroKm);
+        System.out.println("Distancia al Sol: " + distanciaMediaSol);
+        System.out.println("Traslacion: " + traslacion);
+        System.out.println("Rotacion: " + rotacion);
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Visible: " + visible);
+    }
+
+    double obtenerDensidad() {
+        return masaKg / volumenKm3;
+    }
+
+    boolean planetaExterior() {
+        double frontera = 149597870 * 3.4;
+        return distanciaMediaSol > frontera;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Astro jupiter = new Astro(
+            "Jupiter",
+            79,
+            1.899E27,
+            1.4313E15,
+            139820,
+            750000000,
+            11.86,
+            0.41,
+            CategoriaPlaneta.GASEOSO,
+            true);
+
+        jupiter.mostrarDatos();
+    }
+}
