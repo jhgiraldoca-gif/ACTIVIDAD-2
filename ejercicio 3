@@ -1,0 +1,321 @@
+enum TipoCombustible {
+    GASOLINA,
+    BIOETANOL,
+    DIESEL,
+    BIODIESEL,
+    GAS_NATURAL
+}
+
+enum TipoAutomovil {
+    CIUDAD,
+    SUBCOMPACTO,
+    COMPACTO,
+    FAMILIAR,
+    EJECUTIVO,
+    SUV
+}
+
+enum Color {
+    BLANCO,
+    NEGRO,
+    ROJO,
+    NARANJA,
+    AMARILLO,
+    VERDE,
+    AZUL,
+    VIOLETA
+}
+
+public class Automovil {
+
+    // Atributos
+    private String marca;
+    private int modelo;
+    private double motor;
+    private TipoCombustible tipoCombustible;
+    private TipoAutomovil tipoAutomovil;
+    private int numeroPuertas;
+    private int cantidadAsientos;
+    private int velocidadMaxima;
+    private Color color;
+    private int velocidadActual;
+    private boolean automatico;
+    private int multas;
+
+    // Valor supuesto para cada multa
+    private static final double VALOR_MULTA = 500000.0;
+
+    // Constructor
+    public Automovil(String marca, int modelo, double motor,
+                     TipoCombustible tipoCombustible,
+                     TipoAutomovil tipoAutomovil,
+                     int numeroPuertas, int cantidadAsientos,
+                     int velocidadMaxima, Color color,
+                     boolean automatico) {
+
+        this.marca = marca;
+        this.modelo = modelo;
+        this.motor = motor;
+        this.tipoCombustible = tipoCombustible;
+        this.tipoAutomovil = tipoAutomovil;
+        this.numeroPuertas = numeroPuertas;
+        this.cantidadAsientos = cantidadAsientos;
+        this.velocidadMaxima = velocidadMaxima;
+        this.color = color;
+        this.automatico = automatico;
+        this.velocidadActual = 0;
+        this.multas = 0;
+    }
+
+    // Getters y setters
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public int getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(int modelo) {
+        this.modelo = modelo;
+    }
+
+    public double getMotor() {
+        return motor;
+    }
+
+    public void setMotor(double motor) {
+        this.motor = motor;
+    }
+
+    public TipoCombustible getTipoCombustible() {
+        return tipoCombustible;
+    }
+
+    public void setTipoCombustible(TipoCombustible tipoCombustible) {
+        this.tipoCombustible = tipoCombustible;
+    }
+
+    public TipoAutomovil getTipoAutomovil() {
+        return tipoAutomovil;
+    }
+
+    public void setTipoAutomovil(TipoAutomovil tipoAutomovil) {
+        this.tipoAutomovil = tipoAutomovil;
+    }
+
+    public int getNumeroPuertas() {
+        return numeroPuertas;
+    }
+
+    public void setNumeroPuertas(int numeroPuertas) {
+        this.numeroPuertas = numeroPuertas;
+    }
+
+    public int getCantidadAsientos() {
+        return cantidadAsientos;
+    }
+
+    public void setCantidadAsientos(int cantidadAsientos) {
+        this.cantidadAsientos = cantidadAsientos;
+    }
+
+    public int getVelocidadMaxima() {
+        return velocidadMaxima;
+    }
+
+    public void setVelocidadMaxima(int velocidadMaxima) {
+        this.velocidadMaxima = velocidadMaxima;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getVelocidadActual() {
+        return velocidadActual;
+    }
+
+    public void setVelocidadActual(int velocidadActual) {
+        if (velocidadActual >= 0 &&
+            velocidadActual <= velocidadMaxima) {
+            this.velocidadActual = velocidadActual;
+        } else {
+            System.out.println("Velocidad no permitida.");
+        }
+    }
+
+    public boolean isAutomatico() {
+        return automatico;
+    }
+
+    public void setAutomatico(boolean automatico) {
+        this.automatico = automatico;
+    }
+
+    public int getMultas() {
+        return multas;
+    }
+
+    public void setMultas(int multas) {
+        if (multas >= 0) {
+            this.multas = multas;
+        }
+    }
+
+    // Acelerar
+    public void acelerar(int incremento) {
+        if (incremento <= 0) {
+            System.out.println(
+                "El incremento debe ser positivo."
+            );
+            return;
+        }
+
+        if (velocidadActual + incremento > velocidadMaxima) {
+            multas++;
+            System.out.println(
+                "Multa generada por intentar superar " +
+                "la velocidad maxima."
+            );
+            System.out.println("Total de multas: " + multas);
+        } else {
+            velocidadActual += incremento;
+        }
+    }
+
+    // Desacelerar
+    public void desacelerar(int decremento) {
+        if (decremento <= 0) {
+            System.out.println(
+                "El decremento debe ser positivo."
+            );
+            return;
+        }
+
+        if (velocidadActual - decremento < 0) {
+            System.out.println(
+                "No se puede decrementar a una velocidad negativa."
+            );
+        } else {
+            velocidadActual -= decremento;
+        }
+    }
+
+    // Frenar
+    public void frenar() {
+        velocidadActual = 0;
+    }
+
+    // Calcular tiempo estimado de llegada
+    public double calcularTiempoLlegada(double distancia) {
+        if (distancia < 0) {
+            System.out.println("La distancia no puede ser negativa.");
+            return -1;
+        }
+
+        if (velocidadActual == 0) {
+            System.out.println(
+                "No se puede calcular: el automovil esta detenido."
+            );
+            return -1;
+        }
+
+        return distancia / velocidadActual;
+    }
+
+    // Mostrar atributos
+    public void mostrarInformacion() {
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Motor: " + motor);
+        System.out.println("Combustible: " + tipoCombustible);
+        System.out.println("Tipo de automovil: " + tipoAutomovil);
+        System.out.println("Numero de puertas: " + numeroPuertas);
+        System.out.println("Cantidad de asientos: " + cantidadAsientos);
+        System.out.println("Velocidad maxima: " + velocidadMaxima);
+        System.out.println("Color: " + color);
+        System.out.println("Velocidad actual: " + velocidadActual);
+        System.out.println("Automatico: " + automatico);
+        System.out.println("Multas: " + multas);
+    }
+
+    // Determinar si tiene multas
+    public boolean tieneMultas() {
+        return multas > 0;
+    }
+
+    // Calcular el valor total de las multas
+    public double calcularTotalMultas() {
+        return multas * VALOR_MULTA;
+    }
+
+    // Metodo principal
+    public static void main(String[] args) {
+
+        Automovil auto = new Automovil(
+            "Ford",
+            2018,
+            3.0,
+            TipoCombustible.DIESEL,
+            TipoAutomovil.EJECUTIVO,
+            5,
+            6,
+            250,
+            Color.NEGRO,
+            true
+        );
+
+        auto.mostrarInformacion();
+
+        // Establecer velocidad inicial
+        auto.setVelocidadActual(100);
+        System.out.println(
+            "\nVelocidad actual: " + auto.getVelocidadActual()
+        );
+
+        // Aumentar 20 km/h
+        auto.acelerar(20);
+        System.out.println(
+            "Velocidad actual: " + auto.getVelocidadActual()
+        );
+
+        // Disminuir 50 km/h
+        auto.desacelerar(50);
+        System.out.println(
+            "Velocidad actual: " + auto.getVelocidadActual()
+        );
+
+        // Frenar
+        auto.frenar();
+        System.out.println(
+            "Velocidad actual: " + auto.getVelocidadActual()
+        );
+
+        // Probar el punto propuesto de las multas
+        auto.setVelocidadActual(240);
+        auto.acelerar(20);
+
+        System.out.println("\n¿Tiene multas?: " + auto.tieneMultas());
+        System.out.println(
+            "Valor total de multas: $"
+            + auto.calcularTotalMultas()
+        );
+
+        // Probar el tiempo de llegada
+        auto.setVelocidadActual(100);
+        System.out.println(
+            "Tiempo para recorrer 200 km: "
+            + auto.calcularTiempoLlegada(200)
+            + " horas"
+        );
+    }
+}
